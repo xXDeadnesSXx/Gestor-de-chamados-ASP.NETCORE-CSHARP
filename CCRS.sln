@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleChamadosRedeSuporte", "ControleChamadosRedeSuporte\ControleChamadosRedeSuporte.csproj", "{DB94DD4B-DD09-4009-A843-E4E69FB23681}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB94DD4B-DD09-4009-A843-E4E69FB23681}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB94DD4B-DD09-4009-A843-E4E69FB23681}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB94DD4B-DD09-4009-A843-E4E69FB23681}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB94DD4B-DD09-4009-A843-E4E69FB23681}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A35883BF-E7CB-40F1-8092-7A4276AAA1E8}
+	EndGlobalSection
+EndGlobal
