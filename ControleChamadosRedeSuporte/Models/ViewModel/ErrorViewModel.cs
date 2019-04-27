@@ -1,6 +1,6 @@
 using System;
 
-namespace ControleChamadosRedeSuporte.Models
+namespace ControleChamadosRedeSuporte.Models.ViewModel
 {
     public class ErrorViewModel
     {
