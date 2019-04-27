@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using ControleChamadosRedeSuporte.Models;
 
 namespace ControleChamadosRedeSuporte
 {
@@ -33,6 +35,9 @@ namespace ControleChamadosRedeSuporte
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddDbContext<CCRSContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("CCRSContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
