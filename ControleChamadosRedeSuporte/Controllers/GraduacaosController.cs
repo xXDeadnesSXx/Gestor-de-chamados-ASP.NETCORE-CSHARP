@@ -9,44 +9,62 @@ using ControleChamadosRedeSuporte.Models;
 
 namespace ControleChamadosRedeSuporte.Controllers
 {
-    public class UnidadesController : Controller
+    public class GraduacaosController : Controller
     {
         private readonly CCRSContext _context;
-        //Construtor para injeção de dependência
-        public UnidadesController(CCRSContext context)
+
+        public GraduacaosController(CCRSContext context)
         {
             _context = context;
         }
 
-        // GET: Unidades
+        // GET: Graduacaos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Unidade.ToListAsync());
+            return View(await _context.Graduacao.ToListAsync());
         }
 
-        // GET: Unidades/Create
+        // GET: Graduacaos/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var graduacao = await _context.Graduacao
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (graduacao == null)
+            {
+                return NotFound();
+            }
+
+            return View(graduacao);
+        }
+
+        // GET: Graduacaos/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Unidades/Create
+        // POST: Graduacaos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Unidade unidade)
+        public async Task<IActionResult> Create([Bind("Id,Grad")] Graduacao graduacao)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(unidade);
+                _context.Add(graduacao);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(unidade);
+            return View(graduacao);
         }
 
-        // GET: Unidades/Edit/5
+        // GET: Graduacaos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -54,20 +72,22 @@ namespace ControleChamadosRedeSuporte.Controllers
                 return NotFound();
             }
 
-            var unidade = await _context.Unidade.FindAsync(id);
-            if (unidade == null)
+            var graduacao = await _context.Graduacao.FindAsync(id);
+            if (graduacao == null)
             {
                 return NotFound();
             }
-            return View(unidade);
+            return View(graduacao);
         }
 
-        // POST: Unidades/Edit/5
+        // POST: Graduacaos/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Unidade unidade)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Grad")] Graduacao graduacao)
         {
-            if (id != unidade.Id)
+            if (id != graduacao.Id)
             {
                 return NotFound();
             }
@@ -76,12 +96,12 @@ namespace ControleChamadosRedeSuporte.Controllers
             {
                 try
                 {
-                    _context.Update(unidade);
+                    _context.Update(graduacao);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UnidadeExists(unidade.Id))
+                    if (!GraduacaoExists(graduacao.Id))
                     {
                         return NotFound();
                     }
@@ -92,10 +112,10 @@ namespace ControleChamadosRedeSuporte.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(unidade);
+            return View(graduacao);
         }
 
-        // GET: Unidades/Delete/5
+        // GET: Graduacaos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -103,30 +123,30 @@ namespace ControleChamadosRedeSuporte.Controllers
                 return NotFound();
             }
 
-            var unidade = await _context.Unidade
+            var graduacao = await _context.Graduacao
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (unidade == null)
+            if (graduacao == null)
             {
                 return NotFound();
             }
 
-            return View(unidade);
+            return View(graduacao);
         }
 
-        // POST: Unidades/Delete/5
+        // POST: Graduacaos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var unidade = await _context.Unidade.FindAsync(id);
-            _context.Unidade.Remove(unidade);
+            var graduacao = await _context.Graduacao.FindAsync(id);
+            _context.Graduacao.Remove(graduacao);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UnidadeExists(int id)
+        private bool GraduacaoExists(int id)
         {
-            return _context.Unidade.Any(e => e.Id == id);
+            return _context.Graduacao.Any(e => e.Id == id);
         }
     }
 }
