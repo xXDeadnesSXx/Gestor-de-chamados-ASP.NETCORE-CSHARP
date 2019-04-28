@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using ControleChamadosRedeSuporte.Models;
+using ControleChamadosRedeSuporte.Data;
 
 namespace ControleChamadosRedeSuporte
 {
@@ -39,14 +40,17 @@ namespace ControleChamadosRedeSuporte
             services.AddDbContext<CCRSContext>(options =>
                     options.UseMySql(Configuration.GetConnectionString("CCRSContext"), builder =>
 builder.MigrationsAssembly("ControleChamadosRedeSuporte")));
+
+            services.AddScoped<PopuladorBanco>();//Injeção de dependência do serv. de povoar o banco
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, PopuladorBanco populadorBanco)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                populadorBanco.Seed();//popular o banco na fase de desenvolvimento
             }
             else
             {

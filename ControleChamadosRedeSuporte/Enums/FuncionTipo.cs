@@ -7,6 +7,7 @@ namespace ControleChamadosRedeSuporte.Enums
 {
     public enum FuncionTipo : int
     {
-        Militar,Civil
+        Militar = 0,
+        Civil = 1
     }
 }
