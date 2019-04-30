@@ -1,36 +1,41 @@
-﻿@model ControleChamadosRedeSuporte.Models.Funcionario
+﻿@model ControleChamadosRedeSuporte.Models.ViewModel.UnidadeFormViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Adicionar um novo funcionário";
 }
 
-<h2>Create</h2>
+<h2>@ViewData["Title"]</h2>
 
-<h4>Funcionario</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Graduacao" class="control-label">Graduação</label>
-                <input asp-for="Graduacao" class="btn btn-primary btn-xs" />
-                <span asp-validation-for="Graduacao" class="text-danger"></span>
+                <label asp-for="Funcionario.GraduacaoId" class="control-label"></label>
+                <select asp-for="Funcionario.GraduacaoId" 
+                asp-items="@(new SelectList(Model.Graduacaos, "Id", "Grad"))" 
+                class="form-control"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Rg" class="control-label"></label>
-                <input asp-for="Rg" class="form-control" />
-                <span asp-validation-for="Rg" class="text-danger"></span>
+                <label asp-for="Funcionario.Rg" class="control-label"></label>
+                <input asp-for="Funcionario.Rg" class="form-control" />
+                <span asp-validation-for="Funcionario.Rg" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label">Nome</label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Funcionario.Name" class="control-label"></label>
+                <input asp-for="Funcionario.Name" class="form-control" />
+                <span asp-validation-for="Funcionario.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Tipo" class="control-label"></label>
-                <select asp-for="Tipo" class="form-control"></select>
-                <span asp-validation-for="Tipo" class="text-danger"></span>
+                <label asp-for="Funcionario.UnidadeId" class="control-label"></label>
+                <select asp-for="Funcionario.UnidadeId" 
+                asp-items="@(new SelectList(Model.Unidades, "Id", "Name"))" 
+                class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Funcionario.Tipo" class="control-label"></label>
+                <select asp-for="Funcionario.Tipo" class="form-control"></select>
+                <span asp-validation-for="Funcionario.Tipo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -43,6 +48,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

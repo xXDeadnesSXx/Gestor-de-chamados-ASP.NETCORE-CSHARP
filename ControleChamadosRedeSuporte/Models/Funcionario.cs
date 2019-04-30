@@ -1,6 +1,4 @@
 ﻿using ControleChamadosRedeSuporte.Enums;
-using System;
-using System.Collections.Generic;
 
 namespace ControleChamadosRedeSuporte.Models
 {
@@ -10,9 +8,11 @@ namespace ControleChamadosRedeSuporte.Models
         public int Rg { get; set; }
         //Associação 1 para 1
         public Graduacao Graduacao { get; set; }
+        public int GraduacaoId { get; set; }//mater  a integridade relacional
         public string Name { get; set; }
         //Associação 1 para 1
         public Unidade Unidade { get; set; }
+        public int UnidadeId { get; set; }//mater  a integridade relacional
         public FuncionTipo Tipo { get; set; }//enum
 
         public Funcionario()
