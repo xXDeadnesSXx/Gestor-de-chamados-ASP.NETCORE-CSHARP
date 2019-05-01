@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleChamadosRedeSuporte.Migrations
 {
     [DbContext(typeof(CCRSContext))]
-    [Migration("20190428170507_OtherEntities")]
-    partial class OtherEntities
+    [Migration("20190501210027_migracao1")]
+    partial class migracao1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,9 +26,9 @@ namespace ControleChamadosRedeSuporte.Migrations
 
                     b.Property<string>("DescProblema");
 
-                    b.Property<int?>("FuncionarioId");
+                    b.Property<int?>("FuncionarioId1");
 
-                    b.Property<int?>("SolicitanteId");
+                    b.Property<int?>("FuncionarioIdId");
 
                     b.Property<int>("Status");
 
@@ -38,9 +38,9 @@ namespace ControleChamadosRedeSuporte.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FuncionarioId");
+                    b.HasIndex("FuncionarioId1");
 
-                    b.HasIndex("SolicitanteId");
+                    b.HasIndex("FuncionarioIdId");
 
                     b.HasIndex("TipoProblemaId");
 
@@ -52,7 +52,7 @@ namespace ControleChamadosRedeSuporte.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("GraduacaoId");
+                    b.Property<int>("GraduacaoId");
 
                     b.Property<string>("Name");
 
@@ -60,7 +60,7 @@ namespace ControleChamadosRedeSuporte.Migrations
 
                     b.Property<int>("Tipo");
 
-                    b.Property<int?>("UnidadeId");
+                    b.Property<int>("UnidadeId");
 
                     b.HasKey("Id");
 
@@ -88,9 +88,13 @@ namespace ControleChamadosRedeSuporte.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("FuncionarioId");
+
                     b.Property<string>("Problema");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FuncionarioId");
 
                     b.ToTable("TipoProblema");
                 });
@@ -111,11 +115,11 @@ namespace ControleChamadosRedeSuporte.Migrations
                 {
                     b.HasOne("ControleChamadosRedeSuporte.Models.Funcionario", "Funcionario")
                         .WithMany()
-                        .HasForeignKey("FuncionarioId");
+                        .HasForeignKey("FuncionarioId1");
 
-                    b.HasOne("ControleChamadosRedeSuporte.Models.Funcionario", "Solicitante")
+                    b.HasOne("ControleChamadosRedeSuporte.Models.Funcionario", "FuncionarioId")
                         .WithMany()
-                        .HasForeignKey("SolicitanteId");
+                        .HasForeignKey("FuncionarioIdId");
 
                     b.HasOne("ControleChamadosRedeSuporte.Models.TipoProblema", "TipoProblema")
                         .WithMany("Chamados")
@@ -126,11 +130,20 @@ namespace ControleChamadosRedeSuporte.Migrations
                 {
                     b.HasOne("ControleChamadosRedeSuporte.Models.Graduacao", "Graduacao")
                         .WithMany("Funcionarios")
-                        .HasForeignKey("GraduacaoId");
+                        .HasForeignKey("GraduacaoId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ControleChamadosRedeSuporte.Models.Unidade", "Unidade")
                         .WithMany("Funcionarios")
-                        .HasForeignKey("UnidadeId");
+                        .HasForeignKey("UnidadeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ControleChamadosRedeSuporte.Models.TipoProblema", b =>
+                {
+                    b.HasOne("ControleChamadosRedeSuporte.Models.Funcionario")
+                        .WithMany("TipoProblemas")
+                        .HasForeignKey("FuncionarioId");
                 });
 #pragma warning restore 612, 618
         }

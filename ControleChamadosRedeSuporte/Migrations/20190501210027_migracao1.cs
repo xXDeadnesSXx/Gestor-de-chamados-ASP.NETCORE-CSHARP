@@ -3,10 +3,36 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ControleChamadosRedeSuporte.Migrations
 {
-    public partial class OtherEntities : Migration
+    public partial class migracao1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Graduacao",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Grad = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Graduacao", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Unidade",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Unidade", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Funcionario",
                 columns: table => new
@@ -14,9 +40,9 @@ namespace ControleChamadosRedeSuporte.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Rg = table.Column<int>(nullable: false),
-                    GraduacaoId = table.Column<int>(nullable: true),
+                    GraduacaoId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    UnidadeId = table.Column<int>(nullable: true),
+                    UnidadeId = table.Column<int>(nullable: false),
                     Tipo = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -27,13 +53,13 @@ namespace ControleChamadosRedeSuporte.Migrations
                         column: x => x.GraduacaoId,
                         principalTable: "Graduacao",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Funcionario_Unidade_UnidadeId",
                         column: x => x.UnidadeId,
                         principalTable: "Unidade",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,11 +68,18 @@ namespace ControleChamadosRedeSuporte.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Problema = table.Column<string>(nullable: true)
+                    Problema = table.Column<string>(nullable: true),
+                    FuncionarioId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TipoProblema", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TipoProblema_Funcionario_FuncionarioId",
+                        column: x => x.FuncionarioId,
+                        principalTable: "Funcionario",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -55,8 +88,8 @@ namespace ControleChamadosRedeSuporte.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    FuncionarioId = table.Column<int>(nullable: true),
-                    SolicitanteId = table.Column<int>(nullable: true),
+                    FuncionarioId1 = table.Column<int>(nullable: true),
+                    FuncionarioIdId = table.Column<int>(nullable: true),
                     Tel = table.Column<string>(nullable: true),
                     TipoProblemaId = table.Column<int>(nullable: true),
                     DescProblema = table.Column<string>(nullable: true),
@@ -66,14 +99,14 @@ namespace ControleChamadosRedeSuporte.Migrations
                 {
                     table.PrimaryKey("PK_Chamado", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Chamado_Funcionario_FuncionarioId",
-                        column: x => x.FuncionarioId,
+                        name: "FK_Chamado_Funcionario_FuncionarioId1",
+                        column: x => x.FuncionarioId1,
                         principalTable: "Funcionario",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Chamado_Funcionario_SolicitanteId",
-                        column: x => x.SolicitanteId,
+                        name: "FK_Chamado_Funcionario_FuncionarioIdId",
+                        column: x => x.FuncionarioIdId,
                         principalTable: "Funcionario",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -86,14 +119,14 @@ namespace ControleChamadosRedeSuporte.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Chamado_FuncionarioId",
+                name: "IX_Chamado_FuncionarioId1",
                 table: "Chamado",
-                column: "FuncionarioId");
+                column: "FuncionarioId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Chamado_SolicitanteId",
+                name: "IX_Chamado_FuncionarioIdId",
                 table: "Chamado",
-                column: "SolicitanteId");
+                column: "FuncionarioIdId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Chamado_TipoProblemaId",
@@ -109,6 +142,11 @@ namespace ControleChamadosRedeSuporte.Migrations
                 name: "IX_Funcionario_UnidadeId",
                 table: "Funcionario",
                 column: "UnidadeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TipoProblema_FuncionarioId",
+                table: "TipoProblema",
+                column: "FuncionarioId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -117,10 +155,16 @@ namespace ControleChamadosRedeSuporte.Migrations
                 name: "Chamado");
 
             migrationBuilder.DropTable(
+                name: "TipoProblema");
+
+            migrationBuilder.DropTable(
                 name: "Funcionario");
 
             migrationBuilder.DropTable(
-                name: "TipoProblema");
+                name: "Graduacao");
+
+            migrationBuilder.DropTable(
+                name: "Unidade");
         }
     }
 }
