@@ -1,4 +1,5 @@
-﻿using ControleChamadosRedeSuporte.Models;
+﻿using ControleChamadosRedeSuporte.Data;
+using ControleChamadosRedeSuporte.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

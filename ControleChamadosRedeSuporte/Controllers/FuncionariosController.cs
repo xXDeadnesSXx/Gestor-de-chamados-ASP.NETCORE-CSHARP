@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using ControleChamadosRedeSuporte.Models;
-using ControleChamadosRedeSuporte.Models.ViewModel;
+﻿using Microsoft.AspNetCore.Mvc;
+using ControleChamadosRedeSuporte.Data;
 using ControleChamadosRedeSuporte.Services;
+using ControleChamadosRedeSuporte.Models.ViewModel;
+using ControleChamadosRedeSuporte.Models;
 
 namespace ControleChamadosRedeSuporte.Controllers
 {
@@ -65,7 +60,6 @@ namespace ControleChamadosRedeSuporte.Controllers
         {
             _funcionarioService.Remove(id);
             return RedirectToAction(nameof(Index));
-
         }
 
     }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using ControleChamadosRedeSuporte.Data;
+using ControleChamadosRedeSuporte.Enums;
+using System.Collections.Generic;
 
 namespace ControleChamadosRedeSuporte.Models.ViewModel
 {
@@ -7,5 +9,7 @@ namespace ControleChamadosRedeSuporte.Models.ViewModel
         public Funcionario Funcionario { get; set; }
         public ICollection<Unidade> Unidades { get; set; }
         public ICollection<Graduacao> Graduacaos { get; set; }
+        public ICollection<TipoProblema> TipoProblemas { get; set; }
+        public List<FuncionTipo> FuntionTipos { get; set; } = new List<FuncionTipo>();
     }
 }

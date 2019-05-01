@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ControleChamadosRedeSuporte.Data;
 using ControleChamadosRedeSuporte.Models;
 
 namespace ControleChamadosRedeSuporte.Controllers

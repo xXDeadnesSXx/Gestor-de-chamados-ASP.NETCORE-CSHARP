@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using ControleChamadosRedeSuporte.Models;
 using ControleChamadosRedeSuporte.Data;
 using ControleChamadosRedeSuporte.Services;
 
@@ -45,6 +39,7 @@ builder.MigrationsAssembly("ControleChamadosRedeSuporte")));
             services.AddScoped<PopuladorBanco>();//Injeção de dependência do serv. de povoar o banco
             services.AddScoped<FuncionarioService>();//Registro do service
             services.AddScoped<UnidadeService>();
+            services.AddScoped<TipoProblemaService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

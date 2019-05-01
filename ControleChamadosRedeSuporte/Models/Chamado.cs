@@ -10,7 +10,7 @@ namespace ControleChamadosRedeSuporte.Models
     {
         public int Id { get; set; }
         public Funcionario Funcionario { get; set; }
-        public Funcionario Solicitante { get; set; }
+        public Funcionario FuncionarioId { get; set; }//Integridade relacional
         public string Tel { get; set; }
         //Assoc. 1 para 1
         public TipoProblema TipoProblema { get; set; }
@@ -19,11 +19,10 @@ namespace ControleChamadosRedeSuporte.Models
 
         public Chamado() { }
 
-        public Chamado(int id, Funcionario funcionario, Funcionario solicitante, string tel, TipoProblema tipoProblema, string descProblema, Status status)
+        public Chamado(int id, Funcionario funcionario, string tel, TipoProblema tipoProblema, string descProblema, Status status)
         {
             Id = id;
             Funcionario = funcionario;
-            Solicitante = solicitante;
             Tel = tel;
             TipoProblema = tipoProblema;
             DescProblema = descProblema;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ControleChamadosRedeSuporte.Data;
 using ControleChamadosRedeSuporte.Models;
 
 namespace ControleChamadosRedeSuporte.Services
