@@ -5,6 +5,8 @@ using ControleChamadosRedeSuporte.Models.ViewModel;
 using ControleChamadosRedeSuporte.Models;
 using System.Collections.Generic;
 using ControleChamadosRedeSuporte.Services.Exceptions;
+using System.Diagnostics;
+using System;
 
 namespace ControleChamadosRedeSuporte.Controllers
 {
@@ -47,12 +49,12 @@ namespace ControleChamadosRedeSuporte.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id é nulo!" });
             }
             var obj = _funcionarioService.FindById(id.Value);//.value pq id é opcional
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado!" });
             }
             return View(obj);
         }
@@ -68,13 +70,13 @@ namespace ControleChamadosRedeSuporte.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id é nulo!" });
             }
 
             var obj = _funcionarioService.FindById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado!" });
             }
 
             return View(obj);
@@ -84,12 +86,12 @@ namespace ControleChamadosRedeSuporte.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id é nulo!" });
             }
             var obj = _funcionarioService.FindById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado!" });
             }
             List<Graduacao> graduacaos = _unidadeService.FindAllGrad();
             List<Unidade> unidades = _unidadeService.FindAll();
@@ -108,7 +110,7 @@ namespace ControleChamadosRedeSuporte.Controllers
         {
             if(id != funcionario.Id)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { message = "Os Ids não correspondem!" });
             }
 
             try
@@ -116,14 +118,30 @@ namespace ControleChamadosRedeSuporte.Controllers
                 _funcionarioService.Update(funcionario);
                 return RedirectToAction(nameof(Index));
             }
-            catch (NotFoundExcepion)
+            catch (ApplicationException e)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = e.Message });
             }
-            catch (DbConcurrencyExcepion)
+            /*Substituido por ApplicationException que é um supertipo das duas exceções
+            catch (NotFoundExcepion e)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { message = e.Message });
             }
+            catch (DbConcurrencyExcepion e)
+            {
+                return RedirectToAction(nameof(Error), new { message = e.Message });
+            }
+            */
+        }
+
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id??HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
 
     }
