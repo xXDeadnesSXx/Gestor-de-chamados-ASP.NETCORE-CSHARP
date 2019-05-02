@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;//Biblioteca que possibilita o JOIN
+using ControleChamadosRedeSuporte.Services.Exceptions;
 
 namespace ControleChamadosRedeSuporte.Services
 {
@@ -39,10 +40,21 @@ namespace ControleChamadosRedeSuporte.Services
             _context.Funcionario.Remove(obj);
             _context.SaveChanges();
         }
-        public void Edit(int id)
+        public void Update(Funcionario funcionario)
         {
-            var obj = _context.Funcionario.Find(id);
-            _context.SaveChanges();
+            if (!_context.Funcionario.Any(id => id.Id == funcionario.Id))//Verifica se NÃO existe funcionario com o Id
+            {
+                throw new NotFoundExcepion("Funcionário não encontrado");//Excepion personalizado em Service.Exceptions
+            }
+            try
+            {//Se o funcionario existir o try tenta atualizar
+                _context.Update(funcionario);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {//Caso haja conflito de concorrência usa a exception personalizada de concorência
+                throw new DbConcurrencyExcepion(e.Message);
+            }
         }
     }
 }

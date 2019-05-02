@@ -1,10 +1,49 @@
 ﻿@model ControleChamadosRedeSuporte.Models.ViewModel.UnidadeFormViewModel
 
 @{
-    ViewData["Title"] = "Editar";
+    ViewData["Title"] = "Editar dados do funcionário";
 }
 
 <h2>@ViewData["Title"]</h2>
 
 <hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+
+            <input type="hidden" asp-for="Funcionario.Id" />
+            
+            <div class="form-group">
+                <label asp-for="Funcionario.GraduacaoId" class="control-label">Posto / Graduação</label>
+                <select asp-for="Funcionario.GraduacaoId"
+                        asp-items="@(new SelectList(Model.Graduacaos, "Id", "Grad"))"
+                        class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Funcionario.Rg" class="control-label"></label>
+                <input asp-for="Funcionario.Rg" class="form-control" />
+                <span asp-validation-for="Funcionario.Rg" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Funcionario.Name" class="control-label">Nome</label>
+                <input asp-for="Funcionario.Name" class="form-control" />
+                <span asp-validation-for="Funcionario.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Funcionario.UnidadeId" class="control-label">Unidade</label>
+                <select asp-for="Funcionario.UnidadeId"
+                        asp-items="@(new SelectList(Model.Unidades, "Id", "Name"))"
+                        class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Funcionario.Tipo" class="control-label">Militar/Cicil</label>
+                <input asp-for="Funcionario.Tipo" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+                <a asp-action="Index" class="btn btn-default">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
 
