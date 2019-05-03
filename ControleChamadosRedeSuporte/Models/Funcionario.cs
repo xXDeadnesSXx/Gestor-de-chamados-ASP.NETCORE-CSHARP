@@ -14,8 +14,6 @@ namespace ControleChamadosRedeSuporte.Models
         //Associação 1 para 1
         public Unidade Unidade { get; set; }
         public int UnidadeId { get; set; }//mater  a integridade relacional
-        //relacionamento 1 para *
-        public ICollection<TipoProblema> TipoProblemas { get; set; } = new List<TipoProblema>();
         public FuncionTipo Tipo { get; set; }
 
         public Funcionario()

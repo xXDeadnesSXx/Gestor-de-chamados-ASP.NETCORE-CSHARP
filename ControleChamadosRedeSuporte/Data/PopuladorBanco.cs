@@ -19,7 +19,7 @@ namespace ControleChamadosRedeSuporte.Data
 
         public void Seed()//método para povoar que deve ser adicionado no Startup.cs
         {                          //no método Configure
-            if (_context.Graduacao.Any() || _context.TipoProblema.Any() || _context.Unidade.Any())
+            if (_context.Graduacao.Any() || _context.Unidade.Any() || _context.Funcionario.Any())
             {
                 //testa se há algum registro na tab Graduacao ou TipoProblema
                 //caso haja não faz nada
@@ -40,15 +40,6 @@ namespace ControleChamadosRedeSuporte.Data
             Graduacao g12 = new Graduacao(12, "Cb");
             Graduacao g13 = new Graduacao(13, "Sd");
             Graduacao g14 = new Graduacao(14, "Civil");
-
-            TipoProblema t1 = new TipoProblema(1, "Sem conexão com a internet/intranet");
-            TipoProblema t2 = new TipoProblema(2, "Computador não imprime");
-            TipoProblema t3 = new TipoProblema(3, "Computador com mal funcionamento");
-            TipoProblema t4 = new TipoProblema(4, "Falha no sistema");
-            TipoProblema t5 = new TipoProblema(5, "Reparo na rede");
-            TipoProblema t6 = new TipoProblema(6, "Reparo link Net");
-            TipoProblema t7 = new TipoProblema(7, "Reparo Infovia");
-            TipoProblema t8 = new TipoProblema(8, "Outros");
 
             Unidade u1 = new Unidade(1, "1ª CIPM");
             Unidade u2 = new Unidade(2, "1º CPA");
@@ -207,8 +198,14 @@ namespace ControleChamadosRedeSuporte.Data
             Unidade u155 = new Unidade(155, "UPP VIDIGAL");
             Unidade u156 = new Unidade(156, "UPPMERJ");
 
+            Funcionario f1 = new Funcionario(1, 12345, g10, "Mario Bros", u156, ControleChamadosRedeSuporte.Enums.FuncionTipo.Militar);
+            Funcionario f2 = new Funcionario(2, 54321, g14, "Tonny Stark", u88, ControleChamadosRedeSuporte.Enums.FuncionTipo.Civil);
+            Funcionario f3= new Funcionario(3, 12321, g10, "Bruce Banner", u16, ControleChamadosRedeSuporte.Enums.FuncionTipo.Militar);
+            Funcionario f4 = new Funcionario(4, 32123, g14, "Michael Jackson", u6, ControleChamadosRedeSuporte.Enums.FuncionTipo.Civil);
+            Funcionario f5 = new Funcionario(5, 550055, g1, "Lulo Molusco", u72, ControleChamadosRedeSuporte.Enums.FuncionTipo.Militar);
+
             _context.Graduacao.AddRange(g1,g2,g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13,g14);
-            _context.TipoProblema.AddRange(t1, t2, t3, t4, t5, t6,t7,t8);
+            _context.Funcionario.AddRange(f1, f2, f3, f4, f5);
             _context.Unidade.AddRange(u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15,u16,u17,u18,u19,
 u20,u21,u22,u23,u24,u25,u26,u27,u28,u29,u30,u31,u32,u33,u34,u35,u36,u37,u38,u39,u40,u41,u42,u43,
 u44,u45,u46,u47,u48,u49,u50,u51,u52,u53,u54,u55,u56,u57,u58,u59,u60,u61,u62,u63,u64,u65,u66,u67,

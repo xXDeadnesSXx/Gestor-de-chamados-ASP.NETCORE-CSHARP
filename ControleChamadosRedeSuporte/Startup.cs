@@ -39,7 +39,6 @@ builder.MigrationsAssembly("ControleChamadosRedeSuporte")));
             services.AddScoped<PopuladorBanco>();//Injeção de dependência do serv. de povoar o banco
             services.AddScoped<FuncionarioService>();//Registro do service
             services.AddScoped<UnidadeService>();
-            services.AddScoped<TipoProblemaService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
