@@ -31,7 +31,10 @@ namespace ControleChamadosRedeSuporte.Services
 
         public Funcionario FindById(int id)
         {//Include(obj => obj.Graduacao) faz um Join entre as tabelas
-            return _context.Funcionario.Include(obj => obj.Graduacao).FirstOrDefault(obj => obj.Id == id);
+            return _context.Funcionario
+                .Include(obj => obj.Graduacao)
+                .Include(obj => obj.Unidade)
+                .FirstOrDefault(obj => obj.Id == id);
         }
 
         public void Remove(int id)

@@ -17,6 +17,9 @@
         <dt>Nome</dt>
         <dd>@Html.DisplayFor(model => model.Name)</dd>
 
+        <dt>@Html.DisplayNameFor(model => model.Unidade)</dt>
+        <dd>@Html.DisplayFor(model => model.Unidade.Name)</dd>
+
     </dl>
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Editar</a>
     <a asp-action="Index" class="btn btn-default">Voltar</a>
