@@ -20,7 +20,10 @@ namespace ControleChamadosRedeSuporte.Services
 
         public List<Funcionario> FindAll()
         {//Operação sincrona, toda a operação tem que terminar antes de continuar
-            return _context.Funcionario.ToList();
+            return _context.Funcionario
+                .Include(obj => obj.Graduacao)
+                .Include(obj => obj.Unidade)
+                .ToList();
         }
 
         public void Insert(Funcionario obj)
